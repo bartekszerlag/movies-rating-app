@@ -1,0 +1,20 @@
+image: node:16
+
+stages:
+  - build
+  - deploy
+
+build package:
+  stage: build
+  script:
+    - yarn install
+    - yarn run build
+  artifacts:
+    paths:
+      - build/
+
+deploy app:
+  stage: deploy
+  script:
+    - npm install -g netlify-cli
+    - netlify deploy --dir=build --prod

@@ -1,0 +1,14 @@
+node_modules
+build
+npm-debug.log
+.nyc
+.env
+.DS_Store
+
+*.iml
+.idea/
+*.ipr
+*.iws
+out/
+.idea_modules/
+.eslintcache
