@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from 'react-bootstrap/Card';
 import MovieAlert from "./MovieAlert";
+import { Spinner } from "react-bootstrap";
 
 class Movie extends Component {
 
@@ -9,28 +10,30 @@ class Movie extends Component {
         this.movieAlert = React.createRef()
         this.state = {
             movie: {
-                title: 'Title',
-                rating: 'Rating',
-                votes: ''
+                title: 'title',
+                rating: 'rating',
+                votes: 'votes'
             },
+            isLoading: false,
             searchPhrase: ''
         }
     }
 
     serverUri = 'https://movies-rating-service.herokuapp.com';
 
+    showAlert(variant, message) {
+        this.movieAlert.current.setVariant(variant);
+        this.movieAlert.current.setMessage(message);
+        this.movieAlert.current.setVisible(true);
+    }
+
     handleSearch = event => {
         this.setState({ searchPhrase: event.target.value })
     }
 
     handleFetch = () => {
+        this.setState({ isLoading: true })
         this.fetchMovie(this.state.searchPhrase)
-    }
-
-    showAlert(variant, message) {
-        this.movieAlert.current.setVariant(variant);
-        this.movieAlert.current.setMessage(message);
-        this.movieAlert.current.setVisible(true);
     }
 
     fetchMovie = searchPhrase => {
@@ -51,22 +54,30 @@ class Movie extends Component {
                 } else {
                     this.showAlert("danger", "Something went wrong");
                 }
+                this.setState({ isLoading: false });
             })
     }
 
     render() {
-        const { movie, searchPhrase } = this.state
+        const { movie, searchPhrase, isLoading } = this.state
         return (
             <div id='container'>
-                <h1>&#x1F3AC; What is my rating ?</h1>
+                <h1>&#x1F3AC; what is my rating ?</h1>
                 <Card id='card'>
                     <Card.Body>
-                        <Card.Title id='cardTitle'>{movie.title}</Card.Title>
-                        <Card.Subtitle id='cardSubtitle'>{`${movie.rating} (votes ${movie.votes})`}</Card.Subtitle>
+                        {isLoading ? (
+                            <Spinner animation="border" variant="secondary"/>
+                        ) : (<>
+                                <Card.Title id='title'>{movie.title}</Card.Title>
+                                <Card.Subtitle id='rating'>{movie.rating}</Card.Subtitle>
+                                <Card.Subtitle id='votes'>{movie.votes}</Card.Subtitle>
+                            </>
+                        )}
                     </Card.Body>
                 </Card>
-                <input id='input' onChange={this.handleSearch} type='text' placeholder='movie/series title' value={searchPhrase}/>
-                <button id='search' onClick={this.handleFetch} disabled={!searchPhrase}>Search</button>
+                <input id='input' onChange={this.handleSearch} type='text' placeholder='movie/series title'
+                       value={searchPhrase}/>
+                <button id='search' onClick={this.handleFetch} disabled={!searchPhrase}>search</button>
                 <MovieAlert id='alert' ref={this.movieAlert}/>
             </div>
         )
