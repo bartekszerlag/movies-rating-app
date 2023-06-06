@@ -1,5 +1,5 @@
 body {
-    font-family: Trebuchet MS, sans-serif;
+    font-family: Avenir, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: lightgray;
@@ -19,12 +19,13 @@ h1 {
     margin: auto;
 }
 
-#cardTitle {
+#title {
+    color: goldenrod;
     font-size: 25px;
     margin: 20px;
 }
 
-#cardSubtitle {
+#rating, #votes {
     font-size: 22px;
     margin: 20px;
 }
@@ -56,6 +57,7 @@ h1 {
     height: 40px;
     width: 75px;
     font-size: 15px;
+    font-weight: bold;
     background-color: #5e5c59;
     color: white;
 }
