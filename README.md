@@ -1,6 +1,6 @@
 # movies-rating-app
 
-This is simple application responsible for fetching movies rating.
+This is simple UI for [Movies Rating Application](https://moviesratingapp.netlify.app/).
 
 ## How to run (Node v.16)
 First you have to start backend service of this app. All information here - [movies-rating-service](https://github.com/bartekszerlag/movies-rating-service).
