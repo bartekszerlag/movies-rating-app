@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Card from 'react-bootstrap/Card';
+import { Card, Spinner, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import MovieAlert from "./MovieAlert";
-import { Spinner } from "react-bootstrap";
 
 class Movie extends Component {
 
@@ -19,7 +18,7 @@ class Movie extends Component {
         }
     }
 
-    serverUri = 'https://movies-rating-service.herokuapp.com';
+    serverUri = 'http://localhost:8080';
 
     showAlert(variant, message) {
         this.movieAlert.current.setVariant(variant);
@@ -68,10 +67,25 @@ class Movie extends Component {
                         {isLoading ? (
                             <Spinner animation="border" variant="secondary"/>
                         ) : (<>
-                                <Card.Title id='title'>{movie.title}</Card.Title>
-                                <Card.Subtitle id='rating'>{movie.rating}</Card.Subtitle>
-                                <Card.Subtitle id='votes'>{movie.votes}</Card.Subtitle>
-                            </>
+                                 <OverlayTrigger
+                                     placement="top"
+                                     overlay={<Tooltip id="tooltip-title">title</Tooltip>}
+                                 >
+                                     <Card.Title id='title'>{movie.title}</Card.Title>
+                                 </OverlayTrigger>
+                                 <OverlayTrigger
+                                     placement="top"
+                                     overlay={<Tooltip id="tooltip-rating">rating</Tooltip>}
+                                 >
+                                     <Card.Subtitle id='rating'>{movie.rating}</Card.Subtitle>
+                                 </OverlayTrigger>
+                                 <OverlayTrigger
+                                     placement="top"
+                                     overlay={<Tooltip id="tooltip-votes">votes</Tooltip>}
+                                 >
+                                     <Card.Subtitle id='votes'>{movie.votes}</Card.Subtitle>
+                                 </OverlayTrigger>
+                             </>
                         )}
                     </Card.Body>
                 </Card>
